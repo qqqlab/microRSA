@@ -180,13 +180,11 @@ bignum8* bignum8_encode(bignum8* m, bignum8* n) {
   bignum8_imodulate(v2, n);
   bignum8_copy(v2,v); //v=m^2 
 
-#if RSA_E_ROUNDS>1
   for(uint8_t i=0;i<RSA_E_ROUNDS-1;i++) {
     bignum8_multiply(v2,v,v); //v2=v^2
     bignum8_imodulate(v2, n);
     bignum8_copy(v2,v); //v=v^2 
   }
-#endif
     
   bignum8_multiply(v2, m, v); //v2=m^3
   bignum8_imodulate(v2, n);
@@ -229,9 +227,9 @@ uint8_t rsa_encrypt_raw(uint8_t* modulus, uint8_t* msg_enc) {
   //store result
   retval = bignum8_tobin(c8, msg_enc, RSA_BYTES);
 
-  bignum8_free(n8);
-  bignum8_free(m8);
   bignum8_free(c8);
+  bignum8_free(m8);
+  bignum8_free(n8);
 
   return retval;
 }
