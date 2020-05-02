@@ -4,7 +4,7 @@ RSA512 encrypt library for small microcontrollers.
 ### Benchmark Arduino ATmega328P 
 Flash: 2408 bytes  
 RAM: 5 * (64+1 + 2) =  335 bytes  
-Runtime: 440ms @ 16MHz = 2.7M Cycles   
+Runtime: 440ms @ 16MHz = 2.7M CPU Cycles   
 
 ### Generate RSA Keys 
 on linux for example a Raspberry Pi:
