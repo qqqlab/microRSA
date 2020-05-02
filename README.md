@@ -11,7 +11,7 @@ RSA encrypt library for small microcontrollers.
  
 Flash: <2500 bytes with Arduino compiler 
 
-*1) anything below RSA1024 problably should not be used. See: https://en.wikipedia.org/wiki/RSA_Factoring_Challenge
+*1) Anything below RSA1024 problably should not be used. See https://en.wikipedia.org/wiki/RSA_Factoring_Challenge
 
 *2) By default exponent 3 is used. e=3 involves only 2 multiplications. With e=65537 this is 17 multiplications, so the runtime will be 8.5 times as long.
 
