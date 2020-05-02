@@ -1,10 +1,17 @@
-# microRSA512
-RSA512 encrypt library for small microcontrollers.
+# microRSA
+RSA encrypt library for small microcontrollers.
 
-### Benchmark Arduino ATmega328P 
-Flash: 2408 bytes  
-RAM: 5 * (64+1 + 2) =  335 bytes  
-Runtime: 440ms @ 16MHz = 2.7M CPU Cycles   
+### Benchmark ATmega328P @ 16MHz
+
+|RSA|Runtime (ms)|CPU Cycles|RAM (bytes)|
+|---|--:|--:|--:|
+|RSA1024|444|7.1M|665|
+|RSA768|1013|16.2M|505|
+|RSA512|1804|28.9M|345|
+ 
+Flash: <2500 bytes with Arduino compiler 
+
+Note: anything below RSA1024 problably should not be used. See: https://en.wikipedia.org/wiki/RSA_Factoring_Challenge
 
 ### Generate RSA Keys 
 on linux for example a Raspberry Pi:
