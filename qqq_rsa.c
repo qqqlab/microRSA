@@ -175,9 +175,19 @@ void bignum8_setlength(bignum8* b, int len) {
 bignum8* bignum8_encode(bignum8* m, bignum8* n) {
   bignum8 *v2 = bignum8_init(2*n->capacity);
   bignum8 *v = bignum8_init(n->capacity);
+
   bignum8_multiply(v2,m,m); //v2=m^2
   bignum8_imodulate(v2, n);
   bignum8_copy(v2,v); //v=m^2 
+
+#if RSA_E_ROUNDS>1
+  for(uint8_t i=0;i<RSA_E_ROUNDS-1;i++) {
+    bignum8_multiply(v2,v,v); //v2=v^2
+    bignum8_imodulate(v2, n);
+    bignum8_copy(v2,v); //v=v^2 
+  }
+#endif
+    
   bignum8_multiply(v2, m, v); //v2=m^3
   bignum8_imodulate(v2, n);
   bignum8_free(v);
