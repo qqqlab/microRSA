@@ -5,12 +5,12 @@
 //============================================
 //bignum8 header
 typedef struct _bignum8 {
-  uint8_t length;
-  uint8_t capacity;
+  int length;
+  int capacity;
   uint8_t* data;
 } bignum8;
 
-bignum8* bignum8_init(uint8_t capacity);
+bignum8* bignum8_init(int capacity);
 void bignum8_free(bignum8* b);
 void bignum8_copy(bignum8* source, bignum8* dest);
 void bignum8_multiply(bignum8* result, bignum8* b1, bignum8* b2);
@@ -23,7 +23,7 @@ bignum8* bignum8_encode(bignum8* m, bignum8* n);
 bignum8* bignum8_frombin(uint8_t* bin, int len);
 //============================================
 
-bignum8* bignum8_init(uint8_t capacity) {
+bignum8* bignum8_init(int capacity) {
   bignum8* b = malloc(sizeof(bignum8));
   b->length = 0;
   b->capacity = capacity;
@@ -201,7 +201,6 @@ uint8_t bignum8_tobin(bignum8* v, uint8_t* bin, int len) {
   return RSA_OK;
 }
 
-#include "Arduino.h"
 
 uint8_t rsa_encrypt_raw(uint8_t* modulus, uint8_t* msg_enc) {
   uint8_t retval;
@@ -210,15 +209,15 @@ uint8_t rsa_encrypt_raw(uint8_t* modulus, uint8_t* msg_enc) {
   
   
   //load modulus
-  bignum8 *n8 = bignum8_frombin(modulus, 64);
+  bignum8 *n8 = bignum8_frombin(modulus, RSA_BYTES);
 
-  bignum8 *m8 = bignum8_frombin(msg_enc, 64);
+  bignum8 *m8 = bignum8_frombin(msg_enc, RSA_BYTES);
  
   //compute crypt
   bignum8 *c8 = bignum8_encode(m8,n8);
 
   //store result
-  retval = bignum8_tobin(c8, msg_enc, 64);
+  retval = bignum8_tobin(c8, msg_enc, RSA_BYTES);
 
   bignum8_free(n8);
   bignum8_free(m8);
@@ -228,15 +227,15 @@ uint8_t rsa_encrypt_raw(uint8_t* modulus, uint8_t* msg_enc) {
 }
 
 uint8_t rsa_encrypt_pkcs(uint8_t* modulus, uint8_t* msg, uint8_t msglen, uint8_t* rnd_enc) {
-  if(msglen>53) return RSA_DATA_TOO_LARGE_FOR_PADDING;
+  if(msglen>RSA_BYTES-11) return RSA_DATA_TOO_LARGE_FOR_PADDING;
 
   //PKCS#1 v1.5 padding: 0x00 0x02 {random bytes != 0x00} 0x00 {msg[msglen]}
   //msg and rnd_enc are MSB first
   for(uint8_t i=0; i<msglen; i++) {
-    rnd_enc[64-1-i] = msg[msglen-1-i];
+    rnd_enc[RSA_BYTES-1-i] = msg[msglen-1-i];
   }
-  rnd_enc[64-1-msglen]=0x00;
-  for(uint8_t i=64-1-msglen-1; i>1; i--) if(rnd_enc[i] == 0x00) rnd_enc[i] = i+1;
+  rnd_enc[RSA_BYTES-1-msglen]=0x00;
+  for(uint8_t i=RSA_BYTES-1-msglen-1; i>1; i--) if(rnd_enc[i] == 0x00) rnd_enc[i] = i+1;
   rnd_enc[1] = 0x02;
   rnd_enc[0] = 0x00;
   
