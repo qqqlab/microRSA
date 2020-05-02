@@ -4,9 +4,14 @@
 #include <stdint.h>
 
 #ifndef RSA_BITS
-  //#define RSA_BITS 512
-  //#define RSA_BITS 768
   #define RSA_BITS 1024
+  //#define RSA_BITS 768
+  //#define RSA_BITS 512
+#endif
+
+#ifndef RSA_E_ROUNDS
+  #define RSA_E_ROUNDS 1 //exponent = 3
+  //#define RSA_E_ROUNDS 16 //exponent = 65537
 #endif
 
 #define RSA_BYTES ((RSA_BITS)/8)
