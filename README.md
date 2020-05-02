@@ -5,15 +5,15 @@ RSA encrypt library for small microcontrollers.
 
 |RSA|Runtime (ms)|CPU Cycles|RAM (bytes)|
 |---|--:|--:|--:|
-|RSA1024|444|7.1M|665|
-|RSA768|1013|16.2M|505|
-|RSA512|1804|28.9M|345|
+|RSA1024|1804|28.9M|665|
+|RSA768*|1013|16.2M|505|
+|RSA512*|444|7.1M|345|
  
 Flash: <2500 bytes with Arduino compiler 
 
-Note1: anything below RSA1024 problably should not be used. See: https://en.wikipedia.org/wiki/RSA_Factoring_Challenge
+*1) anything below RSA1024 problably should not be used. See: https://en.wikipedia.org/wiki/RSA_Factoring_Challenge
 
-Note2: By default exponent 3 is used. e=3 involves only 2 multiplications. With e=65537 this is 17 multiplications, so the runtime will be 8.5 times as long.
+*2) By default exponent 3 is used. e=3 involves only 2 multiplications. With e=65537 this is 17 multiplications, so the runtime will be 8.5 times as long.
 
 >There is no known attack against small public exponents such as e = 3, provided that the proper padding is used.
 >https://en.wikipedia.org/wiki/RSA_(cryptosystem)
