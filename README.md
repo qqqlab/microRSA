@@ -1,11 +1,12 @@
 # microRSA512
-RSA512 encrypt lib using less than 2500 bytes flash on AVR
+RSA512 encrypt library for small microcontrollers.
 
-Flash: 2408 bytes
-RAM: 5 * (64+1 + 2) =  335 bytes
-Runtime: 440ms @ 16MHz = 2.7M Cycles  
+### Benchmark Arduino ATmega328P 
+Flash: 2408 bytes  
+RAM: 5 * (64+1 + 2) =  335 bytes  
+Runtime: 440ms @ 16MHz = 2.7M Cycles   
 
-## generate rsa keys 
+### Generate RSA Keys 
 on linux for example a Raspberry Pi:
 ```
 openssl genrsa -3 -out rsa512.pem 512
