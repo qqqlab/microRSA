@@ -21,8 +21,8 @@ Flash: <2500 bytes with Arduino compiler
 Better use the rsa_encrypt_pkcs() function with enough random bytes to ensure proper padding.
 
 ### Configuration
-```#define RSA_BITS``` sets the bit length
-```#define RSA_E_ROUNDS``` sets the number of rounds for the exponent. Rounds=1 for e=3, Rounds=16 for e=65537
+```#define RSA_BITS``` sets the bit length  
+```#define RSA_E_ROUNDS``` sets the number of rounds for the exponent. Rounds=1 for e=3, Rounds=16 for e=65537  
 
 ### Generate RSA Keys 
 On linux for example a Raspberry Pi:
